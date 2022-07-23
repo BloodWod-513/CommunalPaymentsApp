@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="MVVM\ViewModel\" />
-    <Folder Include="MVVM\Model\" />
   </ItemGroup>
 
 </Project>
