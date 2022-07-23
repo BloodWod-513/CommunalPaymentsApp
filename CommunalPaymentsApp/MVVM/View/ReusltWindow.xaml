@@ -1,0 +1,31 @@
+﻿<Window x:Class="CommunalPaymentsApp.MVVM.View.ReusltWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CommunalPaymentsApp.MVVM.View"
+        mc:Ignorable="d"
+        Title="ReusltWindow" Height="450" Width="800"
+        SizeToContent="Height">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" BorderBrush="{x:Null}">
+            <TextBlock TextWrapping="Wrap" FontSize="34" 
+                       Text="Вывод результата" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Border>
+        <DataGrid Grid.Row="1" CanUserAddRows="False" 
+                  AutoGenerateColumns="False" 
+                  ColumnWidth="*">
+            <DataGridTextColumn Header="Вид платы"/>
+            <DataGridTextColumn Header="Тариф"/>
+            <DataGridTextColumn Header="Объем"/>
+            <DataGridTextColumn Header="Ед. измерения"/>
+            <DataGridTextColumn Header="Итого"/>
+        </DataGrid>
+    </Grid>
+</Window>
