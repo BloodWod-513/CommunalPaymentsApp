@@ -7,16 +7,25 @@
         xmlns:uc="clr-namespace:CommunalPaymentsApp.UserControls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <Label Content="Начальные параметры"
-               FontSize="34" Height="100"
-               HorizontalContentAlignment="Center"
-               VerticalContentAlignment="Center"/>
-        <StackPanel Margin="10, 0, 10, 0">
-            <uc:SetTextParameterUserControl ParameterText="Кол-во проживающих в помещении:"/>
-            <uc:SetBoolParameterUserControl ParameterText="Имеется ли прибор учета по услуге ХВС:"/>
-            <uc:SetBoolParameterUserControl ParameterText="Имеется ли прибор учета по услуге ГВС:"/>
-            <uc:SetBoolParameterUserControl ParameterText="Имеется ли прибор учета по услуге ЭЭ:"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Label Content="Начальные параметры"
+                   FontSize="34" Height="100"
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"/>
+            <StackPanel Margin="10, 0, 10, 0">
+                <uc:SetTextParameterUserControl ParameterText="Кол-во проживающих в помещении:"/>
+                <uc:SetBoolParameterUserControl ParameterText="Имеется ли прибор учета по услуге ХВС:"/>
+                <uc:SetBoolParameterUserControl ParameterText="Имеется ли прибор учета по услуге ГВС:"/>
+                <uc:SetBoolParameterUserControl ParameterText="Имеется ли прибор учета по услуге ЭЭ:"/>
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+        <Button Grid.Row="1" Content="Произведение начислений" 
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                FontSize="14" Padding="10"/>
+    </Grid>
 </Window>
