@@ -12,11 +12,42 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" BorderBrush="{x:Null}" Height="50">
-            <TextBlock TextWrapping="Wrap" FontSize="14" 
-                       Text="{Binding ParameterText}"
-                       VerticalAlignment="Center" 
-                       HorizontalAlignment="Left"/>
+            <StackPanel>
+                <TextBlock TextWrapping="Wrap" FontSize="14" 
+                           Text="{Binding ParameterText}"
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Left"/>
+                <ContentControl>
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=CheckBox,
+                            Path=IsChecked}" Value="true">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <StackPanel Orientation="Horizontal" Margin="5, 5, 0, 0">
+                                                    <TextBlock TextWrapping="Wrap" FontSize="13" 
+                                                               Text="Текущие показания: "
+                                                               VerticalAlignment="Center" 
+                                                               HorizontalAlignment="Left"/>
+                                                    <TextBox Height="20" Width="90" FontSize="13"
+                                                             VerticalContentAlignment="Center" TextWrapping="Wrap" 
+                                                             VerticalScrollBarVisibility="Auto"/>
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+
+            </StackPanel>
         </Border>
-        <CheckBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <CheckBox Name="CheckBox" Grid.Column="1" VerticalAlignment="Top"
+                  HorizontalAlignment="Left"
+                  Margin="0, 3, 0, 0"/>
     </Grid>
 </UserControl>
