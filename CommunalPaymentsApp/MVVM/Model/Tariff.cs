@@ -6,20 +6,30 @@ using System.Threading.Tasks;
 
 namespace CommunalPaymentsApp.MVVM.Model
 {
-    internal class Tariff
+    public class Tariff : ICloneable
     {
-        public int Id { get; set; }
-        public string ServiceName { get; set; }
+        public int? Id { get; set; }
+        public string ServiceName { get; set; } = "";
         public double Cost { get; set; }
-        public double? Standart { get; set; }
-        public string UnitMesurement => _unitMesurement;
-        private string _unitMesurement;
-        public Tariff(string serviceName, double cost, double? standart, UnitsMesurement unitMesurement)
+        public double? Normative { get; set; }
+        public TypeTariff TypeTariffId { get; set; }
+        public string UnitMesurement
+        {
+            get => _unitMesurement;
+            private set
+            {
+                _unitMesurement = value;
+            }
+        }
+        private string _unitMesurement = "";
+        private Tariff() { }
+        public Tariff(string serviceName, double cost, double? standart, UnitsMesurement unitMesurement, TypeTariff typeTariffId)
         {
             ServiceName = serviceName;
             Cost = cost;
-            Standart = standart;
+            Normative = standart;
             SetUnitMesurement(unitMesurement);
+            TypeTariffId = typeTariffId;
         }
 
         public void SetUnitMesurement(UnitsMesurement unitMesurement)
@@ -37,11 +47,27 @@ namespace CommunalPaymentsApp.MVVM.Model
                     break;
             }
         }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
         public enum UnitsMesurement
         {
             Kilowatt = 0,
             CubicMeter,
             Gigacalories
+        }
+        public enum TypeTariff
+        {
+            ColdWater = 0,
+            HotWater,
+            Electricity,
+            ElectricityPerDay,
+            ElectricityPerNight,
+            HotWaterOfHeatCarrier,
+            HotWaterThermalEnergy
         }
     }
 }
