@@ -1,4 +1,4 @@
-﻿<Window x:Class="CommunalPaymentsApp.MainWindow"
+﻿<Window x:Class="CommunalPaymentsApp.MVVM.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,6 +7,7 @@
         xmlns:uc="clr-namespace:CommunalPaymentsApp.UserControls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
+        ResizeMode="NoResize"
         SizeToContent="Height">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,14 +20,121 @@
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"/>
             <StackPanel Margin="10, 0, 10, 0">
-                <uc:SetTextParameterUserControl ParameterText="Кол-во проживающих в помещении:"/>
-                <uc:SetBoolParameterUserControl ParameterText="Имеется ли прибор учета по услуге ХВС:"/>
-                <uc:SetBoolParameterUserControl ParameterText="Имеется ли прибор учета по услуге ГВС:"/>
-                <uc:SetBoolParameterUserControl ParameterText="Имеется ли прибор учета по услуге ЭЭ:"/>
+                <uc:SetTextParameterUserControl x:Name="AmountOfResidents" ParameterText="Кол-во проживающих в помещении:"/>
+                <uc:SetBoolParameterUserControl x:Name="ColdWater" ParameterText="Имеется ли прибор учета по услуге ХВС:"/>
+                <uc:SetBoolParameterUserControl x:Name="HotWater" ParameterText="Имеется ли прибор учета по услуге ГВС:"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <Border Grid.Column="0" BorderBrush="{x:Null}">
+                            <StackPanel>
+                                <TextBlock TextWrapping="Wrap" FontSize="14" 
+                                   Text="Имеется ли прибор учета по услуге ЭЭ:" 
+                                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                <ContentControl x:Name="test">
+                                    <ContentControl.Style>
+                                        <Style TargetType="{x:Type ContentControl}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=ElectricyCheckBox,
+                                    Path=IsChecked}" Value="True">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate>
+                                                                <StackPanel Margin="5, 10, 0, 0">
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <TextBlock Text="Двойной тариф " TextWrapping="Wrap" FontSize="13"
+                                                                                   VerticalAlignment="Center"
+                                                                                   HorizontalAlignment="Left"/>
+                                                                        <CheckBox x:Name="ElectricyTwoTariffCheckBox" FontSize="13" 
+                                                                                  HorizontalAlignment="Left" 
+                                                                                  VerticalAlignment="Top"
+                                                                                  Margin="0, 3, 0, 0"
+                                                                                  IsChecked="{Binding ElectricyTwoTariffCheckBoxIsChecked}"/>
+                                                                    </StackPanel>
+                                                                    <ContentControl>
+                                                                        <ContentControl.Style>
+                                                                            <Style TargetType="{x:Type ContentControl}">
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding ElementName=ElectricyTwoTariffCheckBox, Path=IsChecked}" 
+                                                                                                 Value="True">
+                                                                                        <Setter Property="Template">
+                                                                                            <Setter.Value>
+                                                                                                <ControlTemplate>
+                                                                                                    <StackPanel>
+                                                                                                        <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 10">
+                                                                                                            <TextBlock TextWrapping="Wrap" FontSize="13" 
+                                                                                                                       Text="Текущие показания за день: "
+                                                                                                                       VerticalAlignment="Center" 
+                                                                                                                       HorizontalAlignment="Left"/>
+                                                                                                            <TextBox Height="20" Width="90" FontSize="13"
+                                                                                                                     VerticalContentAlignment="Center" 
+                                                                                                                     TextWrapping="Wrap" 
+                                                                                                                     VerticalScrollBarVisibility="Auto"
+                                                                                                                     Text="{Binding ElectrocityPerDay}"/>
+                                                                                                        </StackPanel>
+                                                                                                        <StackPanel Orientation="Horizontal">
+                                                                                                            <TextBlock TextWrapping="Wrap" FontSize="13" 
+                                                                                                                       Text="Текущие показания за ночь: "
+                                                                                                                       VerticalAlignment="Center" 
+                                                                                                                       HorizontalAlignment="Left"/>
+                                                                                                            <TextBox Height="20" Width="90" FontSize="13"
+                                                                                                                     VerticalContentAlignment="Center" 
+                                                                                                                     TextWrapping="Wrap" 
+                                                                                                                     VerticalScrollBarVisibility="Auto"
+                                                                                                                     Text="{Binding ElectrocityPerNight}"/>
+                                                                                                        </StackPanel>
+                                                                                                    </StackPanel>
+                                                                                                </ControlTemplate>
+                                                                                            </Setter.Value>
+                                                                                        </Setter>
+                                                                                    </DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding ElementName=ElectricyTwoTariffCheckBox, Path=IsChecked}" 
+                                                                                                 Value="False">
+                                                                                        <Setter Property="Template">
+                                                                                            <Setter.Value>
+                                                                                                <ControlTemplate>
+                                                                                                    <StackPanel Orientation="Horizontal">
+                                                                                                        <TextBlock TextWrapping="Wrap" FontSize="13" Margin="0, 10, 0, 10"
+                                                                                                                   Text="Текущие показания: "
+                                                                                                                   VerticalAlignment="Center" 
+                                                                                                                   HorizontalAlignment="Left"/>
+                                                                                                        <TextBox Height="20" Width="90" FontSize="13"
+                                                                                                                 VerticalContentAlignment="Center" 
+                                                                                                                 TextWrapping="Wrap" 
+                                                                                                                 VerticalScrollBarVisibility="Auto"
+                                                                                                                 Text="{Binding Electrocity}"/>
+                                                                                                    </StackPanel>
+                                                                                                </ControlTemplate>
+                                                                                            </Setter.Value>
+                                                                                        </Setter>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </ContentControl.Style>
+                                                                    </ContentControl>
+                                                                </StackPanel>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                </ContentControl>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                    <CheckBox Name="ElectricyCheckBox" Grid.Column="1" VerticalAlignment="Top"
+                  HorizontalAlignment="Left"
+                  Margin="0, 3, 0, 0"/>
+                </Grid>
             </StackPanel>
         </StackPanel>
         <Button Grid.Row="1" Content="Произведение начислений" 
                 HorizontalAlignment="Center" VerticalAlignment="Center"
-                FontSize="14" Padding="10" Margin="10"/>
+                FontSize="14" Padding="10" Margin="10" Click="MakeAccrualsButton_Click"/>
     </Grid>
 </Window>
