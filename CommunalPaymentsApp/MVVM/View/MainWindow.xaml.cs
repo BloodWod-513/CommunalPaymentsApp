@@ -24,11 +24,11 @@ namespace CommunalPaymentsApp.MVVM.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainViewModel MainWindowVM { get; set; }
+        public MainWindowViewModel MainWindowVM { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            MainWindowVM = new MainViewModel();
+            MainWindowVM = new MainWindowViewModel();
             DataContext = MainWindowVM;
         }
 
