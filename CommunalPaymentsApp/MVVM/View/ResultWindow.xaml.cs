@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CommunalPaymentsApp.MVVM.Model;
+using CommunalPaymentsApp.MVVM.Model.AbstractServiceParameter;
+using CommunalPaymentsApp.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +20,17 @@ namespace CommunalPaymentsApp.MVVM.View
     /// <summary>
     /// Логика взаимодействия для ReusltWindow.xaml
     /// </summary>
-    public partial class ReusltWindow : Window
+    public partial class ResultWindow : Window
     {
-        public ReusltWindow()
+        public ResultWindowViewModel ResultWindowViewModel { get; set; }
+        private ResultWindow()
         {
             InitializeComponent();
+        }
+        public ResultWindow(List<ServiceParameter?> serviceParameters) : this()
+        {
+            ResultWindowViewModel = new(serviceParameters);
+            DataGridResult.ItemsSource = ResultWindowViewModel.ServiceParameters;
         }
     }
 }
