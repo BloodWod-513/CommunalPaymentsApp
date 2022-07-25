@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunalPaymentsApp.MVVM.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,11 @@ namespace CommunalPaymentsApp
     /// </summary>
     public partial class App : Application
     {
+        public static List<Tariff> tariffs = new List<Tariff>();
+        public App()
+        {
+            ApplicationContext db = new();
+            tariffs = db.Tariffs.ToList();
+        }
     }
 }
