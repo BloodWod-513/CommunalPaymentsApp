@@ -26,5 +26,6 @@ namespace CommunalPaymentsApp.UserControls
             DataContext = this;
         }
         public string ParameterText { get; set; }
+        public double Value { get; set; }
     }
 }

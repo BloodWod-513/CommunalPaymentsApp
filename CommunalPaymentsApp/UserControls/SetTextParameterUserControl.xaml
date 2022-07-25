@@ -16,7 +16,7 @@
                        Text="{Binding ParameterText}" 
                        VerticalAlignment="Center" HorizontalAlignment="Left"/>
         </Border>
-        <TextBox Grid.Column="1" Height="20" FontSize="14"
+        <TextBox x:Name="TextBox" Grid.Column="1" Height="20" FontSize="14"
                  VerticalContentAlignment="Center" TextWrapping="Wrap" 
                  VerticalScrollBarVisibility="Auto"/>
     </Grid>
