@@ -13,9 +13,9 @@ namespace CommunalPaymentsApp.MVVM.Model
         {
             return serviceFactory.CreateNormativeServiceParameter(numberOfResidents);
         }
-        public static ServiceParameter CreateGeneralTariffParameter(Interface.IServiceFactory serviceFactory, double serviceCost, double previousServiceCost)
+        public static ServiceParameter CreateTariffParameter(Interface.IServiceFactory serviceFactory, double serviceCost, double previousServiceCost)
         {
-            return serviceFactory.CreateGeneralTariffServiceParameter(serviceCost, previousServiceCost);
+            return serviceFactory.CreateTariffServiceParameter(serviceCost, previousServiceCost);
         }
         public static ServiceParameter CreateDayTariffParameter(Interface.IServiceDayTariffFactory serviceFactory, double serviceCost, double previousServiceCost)
         {
@@ -24,6 +24,10 @@ namespace CommunalPaymentsApp.MVVM.Model
         public static ServiceParameter CreateNightTariffParameter(Interface.IServiceNightTariffFactory serviceFactory, double serviceCost, double previousServiceCost)
         {
             return serviceFactory.CreateNightTariffServiceParameter(serviceCost, previousServiceCost);
+        }
+        public static ServiceParameter CreateHotWaterThermalEnergyParameter(Interface.IHotWaterThermalEnergyTariffFactory hotWaterThermalEnergyTariffFactory, double volumeOfHotWater)
+        {
+            return hotWaterThermalEnergyTariffFactory.CreateHotWaterThermalEnergyParameter(volumeOfHotWater);
         }
     }
 }
