@@ -9,15 +9,14 @@ namespace CommunalPaymentsApp.MVVM.Model.AbstractServiceParameter
     public abstract class ServiceParameter
     {
         public Tariff? Tariff { get; set; }
-        public double ServiceCost { get; set; }
         public double VolumeOfService { get; set; }
         public bool AutoResult { get; set; } = true;
-        public double? Result
+        public double Result
         {
             get
             {
                 if (AutoResult)
-                    _result = VolumeOfService * Tariff?.Cost;
+                    _result = VolumeOfService * Tariff.Cost;
                 return _result;
             }
             set
@@ -26,10 +25,13 @@ namespace CommunalPaymentsApp.MVVM.Model.AbstractServiceParameter
                     _result = value;
             }
         }
-        private double? _result;
-        public ServiceParameter(double serviceCost)
+        private double _result;
+        protected ServiceParameter(Tariff.TypeTariff? tariff)
         {
-            ServiceCost = serviceCost;
+            if (tariff != null)
+                Tariff = CloneTariff((Tariff.TypeTariff)tariff);
+            else
+                Tariff = null;
         }
         protected Tariff CloneTariff(Tariff.TypeTariff typeTariff)
         {

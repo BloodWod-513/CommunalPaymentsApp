@@ -9,7 +9,7 @@ namespace CommunalPaymentsApp.MVVM.Model.AbstractServiceParameter
     public abstract class TariffServiceParameter : ServiceParameter
     {
         public double PreviousSevriceCost { get; set; }
-        public TariffServiceParameter(double serviceCost, double previousSevriceCost) : base(serviceCost)
+        public TariffServiceParameter(double serviceCost, double previousSevriceCost, Tariff.TypeTariff typeTariff) : base(typeTariff)
         {
             VolumeOfService = serviceCost - previousSevriceCost;
         }

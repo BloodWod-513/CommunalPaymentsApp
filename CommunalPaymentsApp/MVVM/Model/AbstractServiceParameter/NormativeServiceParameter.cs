@@ -10,10 +10,13 @@ namespace CommunalPaymentsApp.MVVM.Model.AbstractServiceParameter
     {
         public int NumberOfResidents { get; set; }
         public NormativeServiceParameter(int numberOfResidents, Tariff.TypeTariff typeTariff) 
-            : base((double)App.tariffs?.FirstOrDefault(t => t.TypeTariffId == typeTariff)?.Normative)
+            : base(typeTariff)
         {
+            double cost = 0;
+            if (Tariff?.Normative != null)
+                cost = (double)Tariff.Normative;
             NumberOfResidents = numberOfResidents;
-            VolumeOfService = numberOfResidents * ServiceCost;
+            VolumeOfService = numberOfResidents * cost;
         }
     }
 }
