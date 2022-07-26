@@ -30,15 +30,23 @@ namespace CommunalPaymentsApp.MVVM.View
             InitializeComponent();
             MainWindowVM = new MainWindowViewModel();
             DataContext = MainWindowVM;
+            Debt.TextBox.Text = "0";
+            Payment.TextBox.Text = "0";
         }
         private void MakeAccrualsButton_Click(object sender, RoutedEventArgs e)
         {
             if (!TryEnterInt(AmountOfResidents.TextBox.Text))
                 return;
             int numberOfResidents = int.Parse(AmountOfResidents.TextBox.Text);
+
             if (!TryEnterDouble(Debt.TextBox.Text))
                 return;
-            double debt = double.Parse(Debt.TextBox.Text);
+            double debt = double.Parse(Debt.TextBox.Text); 
+
+            if (!TryEnterDouble(Payment.TextBox.Text))
+                return;
+            double payment = double.Parse(Payment.TextBox.Text);
+            debt -= payment;
 
             bool isCorrectParams = true;
 
@@ -79,7 +87,8 @@ namespace CommunalPaymentsApp.MVVM.View
                     isCorrectParams = CurMoreThanPrevParameter(MainWindowVM.PrevElectrocityPerNight, MainWindowVM.ElectrocityPerNight);
                     if (!isCorrectParams) return;
 
-                    electricyServiceParameter = ServiceParameterCreator.CreateTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.ElectrocityPerDay + MainWindowVM.ElectrocityPerNight, 0);
+                    electricyServiceParameter = ServiceParameterCreator.CreateTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.ElectrocityPerDay + MainWindowVM.ElectrocityPerNight,
+                        MainWindowVM.PrevElectrocityPerDay + MainWindowVM.PrevElectrocityPerNight);
                     electricyServiceParameter.Tariff.Normative = electricyPerDayServiceParameter?.Tariff?.Normative + electricyPerNightServiceParameter?.Tariff?.Normative;
                     electricyServiceParameter.Tariff.Cost = 0;
                     electricyServiceParameter.AutoResult = false;
