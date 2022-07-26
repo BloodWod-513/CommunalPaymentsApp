@@ -33,12 +33,14 @@ namespace CommunalPaymentsApp.MVVM.View
         }
         private void MakeAccrualsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryEnterNumber(AmountOfResidents.TextBox.Text))
+            if (!TryEnterInt(AmountOfResidents.TextBox.Text))
                 return;
             int numberOfResidents = int.Parse(AmountOfResidents.TextBox.Text);
-            if (!TryEnterNumber(Debt.TextBox.Text))
+            if (!TryEnterDouble(Debt.TextBox.Text))
                 return;
             double debt = double.Parse(Debt.TextBox.Text);
+
+            bool isCorrectParams = true;
 
             ServiceParameter? coldWaterServiceParameter = null,
                 hotWaterOfHeatCarrieServiceParameter = null, hotWaterThermalEnergy = null,
@@ -46,6 +48,8 @@ namespace CommunalPaymentsApp.MVVM.View
             if ((bool)ColdWater.CheckBox.IsChecked)
             {
                 coldWaterServiceParameter = ServiceParameterCreator.CreateTariffParameter(new ColdWaterParameterFactory(), ColdWater.Value, ColdWater.PrevValue);
+                isCorrectParams = CurMoreThanPrevParameter(ColdWater.PrevValue, ColdWater.Value);
+                if (!isCorrectParams) return;
             }
             else
             {
@@ -54,6 +58,8 @@ namespace CommunalPaymentsApp.MVVM.View
             if ((bool)HotWater.CheckBox.IsChecked)
             {
                 hotWaterOfHeatCarrieServiceParameter = ServiceParameterCreator.CreateTariffParameter(new HotWaterParameterFactory(), HotWater.Value, HotWater.PrevValue);
+                isCorrectParams = CurMoreThanPrevParameter(HotWater.PrevValue, HotWater.Value);
+                if (!isCorrectParams) return;
             }
             else
             {
@@ -66,7 +72,12 @@ namespace CommunalPaymentsApp.MVVM.View
                 if (MainWindowVM.ElectricyTwoTariffCheckBoxIsChecked)
                 {
                     electricyPerDayServiceParameter = ServiceParameterCreator.CreateDayTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.ElectrocityPerDay, MainWindowVM.PrevElectrocityPerDay);
-                    electricyPerNightServiceParameter = ServiceParameterCreator.CreateNightTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.ElectrocityPerNight, MainWindowVM.PrevElectrocityPerNight);
+                    isCorrectParams = CurMoreThanPrevParameter(MainWindowVM.PrevElectrocityPerDay, MainWindowVM.ElectrocityPerDay);
+                    if (!isCorrectParams) return;
+
+                    electricyPerNightServiceParameter = ServiceParameterCreator.CreateNightTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.ElectrocityPerNight, MainWindowVM.PrevElectrocityPerNight);          
+                    isCorrectParams = CurMoreThanPrevParameter(MainWindowVM.PrevElectrocityPerNight, MainWindowVM.ElectrocityPerNight);
+                    if (!isCorrectParams) return;
 
                     electricyServiceParameter = ServiceParameterCreator.CreateTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.ElectrocityPerDay + MainWindowVM.ElectrocityPerNight, 0);
                     electricyServiceParameter.Tariff.Normative = electricyPerDayServiceParameter?.Tariff?.Normative + electricyPerNightServiceParameter?.Tariff?.Normative;
@@ -75,7 +86,11 @@ namespace CommunalPaymentsApp.MVVM.View
                     electricyServiceParameter.Result = electricyPerDayServiceParameter.Result + electricyPerNightServiceParameter.Result;
                 }
                 else
+                {
                     electricyServiceParameter = ServiceParameterCreator.CreateTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.Electrocity, MainWindowVM.PrevElectrocity);
+                    isCorrectParams = CurMoreThanPrevParameter(MainWindowVM.PrevElectrocity, MainWindowVM.Electrocity);
+                    if (!isCorrectParams) return;
+                }
             }
             else
             {
@@ -87,16 +102,42 @@ namespace CommunalPaymentsApp.MVVM.View
             resultWindow.Owner = this;
             resultWindow.ShowDialog();
         }
-        private bool TryEnterNumber(string str)
+        private bool CurMoreThanPrevParameter(double prevValue, double value)
+        {
+            if (prevValue > value)
+            {
+                ShowError("Текущий параметр не может быть меньше предыдущего.");
+                return false;
+            }
+            return true;
+        }
+        private bool TryEnterInt(string str)
+        {
+            if (!CheckString(str))
+                return false;
+            else if (!int.TryParse(str, out int number))
+            {
+                ShowError("Введите целочисленное число.");
+                return false;
+            }
+            return true;
+        }
+        private bool TryEnterDouble(string str)
+        {
+            if (!CheckString(str))
+                return false;
+            else if (!double.TryParse(str, out double number))
+            {
+                ShowError("Введите нецелочисленное число.");
+                return false;
+            }
+            return true;
+        }
+        private bool CheckString(string str)
         {
             if (string.IsNullOrWhiteSpace(str))
             {
                 ShowError("Вы ничего не ввели.");
-                return false;
-            }
-            else if (!double.TryParse(str, out double number))
-            {
-                ShowError("Введите число.");
                 return false;
             }
             return true;
