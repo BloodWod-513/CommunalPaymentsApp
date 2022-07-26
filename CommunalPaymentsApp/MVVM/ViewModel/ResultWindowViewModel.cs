@@ -10,10 +10,21 @@ namespace CommunalPaymentsApp.MVVM.ViewModel
 {
     public class ResultWindowViewModel
     {
-        public List<ServiceParameter?> ServiceParameters { get; set; }
-        public ResultWindowViewModel(List<ServiceParameter?> serviceParameters)
+        public List<ServiceParameter> ServiceParameters { get; set; }
+        public ResultWindowViewModel(List<ServiceParameter> serviceParameters)
         {
-            ServiceParameters = serviceParameters;
+            ServiceParameters = new List<ServiceParameter>(serviceParameters);
+            ServiceParameter emptyServiceParameter = new EmptyServiceParamter();
+            emptyServiceParameter.AutoResult = false;
+            foreach (var item in serviceParameters)
+            {
+                if (item.AutoResult)
+                {
+                    emptyServiceParameter.Result += item.Result;
+
+                }
+            }
+            ServiceParameters.Add(emptyServiceParameter);
         }
 
     }
