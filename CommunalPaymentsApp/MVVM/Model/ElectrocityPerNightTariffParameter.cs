@@ -8,9 +8,8 @@ namespace CommunalPaymentsApp.MVVM.Model
 {
     internal class ElectrocityPerNightTariffParameter : AbstractServiceParameter.TariffServiceParameter
     {
-        public ElectrocityPerNightTariffParameter(double serviceCost, double previousSevriceCost) : base(serviceCost, previousSevriceCost)
+        public ElectrocityPerNightTariffParameter(double serviceCost, double previousSevriceCost) : base(serviceCost, previousSevriceCost, Tariff.TypeTariff.ElectricityPerNight)
         {
-            Tariff = CloneTariff(Tariff.TypeTariff.ElectricityPerNight);
         }
     }
 }

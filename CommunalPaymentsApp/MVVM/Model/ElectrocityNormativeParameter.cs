@@ -10,7 +10,6 @@ namespace CommunalPaymentsApp.MVVM.Model
     {
         public ElectrocityNormativeParameter(int numberOfResidents) : base(numberOfResidents, Tariff.TypeTariff.Electricity)
         {
-            Tariff = CloneTariff(Tariff.TypeTariff.Electricity);
         }
     }
 }

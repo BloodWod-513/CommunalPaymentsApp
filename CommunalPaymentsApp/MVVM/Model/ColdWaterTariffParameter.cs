@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CommunalPaymentsApp.MVVM.Model
 {
-    public class ColdWaterNormativeParameter : NormativeServiceParameter
+    public class ColdWaterTariffParameter : TariffServiceParameter
     {
-        public ColdWaterNormativeParameter(int numberOfResidents) : base(numberOfResidents, Tariff.TypeTariff.ColdWater)
+        public ColdWaterTariffParameter(double serviceCost, double previousSevriceCost) : base(serviceCost, previousSevriceCost, Tariff.TypeTariff.ColdWater)
         {
 
         }
