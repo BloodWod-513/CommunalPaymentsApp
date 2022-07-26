@@ -10,9 +10,9 @@ namespace CommunalPaymentsApp.MVVM.Model.Factory
             return new ElectrocityNormativeParameter(numberOfResidents);
         }
 
-        public TariffServiceParameter CreateGeneralTariffServiceParameter(double serviceCost, double previousSevriceCost)
+        public TariffServiceParameter CreateTariffServiceParameter(double serviceCost, double previousSevriceCost)
         {
-            return new ElectrocityGeneralTariffParameter(serviceCost, previousSevriceCost);
+            return new ElectrocityTariffParameter(serviceCost, previousSevriceCost);
         }
 
         public TariffServiceParameter CreateDayTariffServiceParameter(double serviceCost, double previousSevriceCost)

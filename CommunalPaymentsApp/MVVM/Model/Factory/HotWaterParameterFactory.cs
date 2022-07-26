@@ -2,16 +2,21 @@
 using CommunalPaymentsApp.MVVM.Model.Interface;
 namespace CommunalPaymentsApp.MVVM.Model.Factory
 {
-    public class HotWaterParameterFactory : IServiceFactory
+    public class HotWaterParameterFactory : IServiceFactory, IHotWaterThermalEnergyTariffFactory
     {
-        public NormativeServiceParameter CreateNormativeServiceParameter(int numberOfResidents)
+        public ServiceParameter CreateHotWaterThermalEnergyParameter(double volumeOfHotWater)
         {
-            return new HotWaterNormativeParameter(numberOfResidents);
+            return new HotWaterThermalEnergyTariffParameter(volumeOfHotWater);
         }
 
-        public TariffServiceParameter CreateGeneralTariffServiceParameter(double serviceCost, double previousSevriceCost)
+        public NormativeServiceParameter CreateNormativeServiceParameter(int numberOfResidents)
         {
-            return new HotWaterGeneralTariffParameter(serviceCost, previousSevriceCost);
+            return new HotWaterOfHeatCarrierNormativeParameter(numberOfResidents);
+        }
+
+        public TariffServiceParameter CreateTariffServiceParameter(double serviceCost, double previousSevriceCost)
+        {
+            return new HotWaterOfHeatCarrierTariffParameter(serviceCost, previousSevriceCost);
         }
     }
 }

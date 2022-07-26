@@ -15,9 +15,9 @@ namespace CommunalPaymentsApp.MVVM.Model.Factory
             return new ColdWaterNormativeParameter(numberOfResidents);
         }
 
-        public TariffServiceParameter CreateGeneralTariffServiceParameter(double serviceCost, double previousSevriceCost)
+        public TariffServiceParameter CreateTariffServiceParameter(double serviceCost, double previousSevriceCost)
         {
-            return new ColdWaterGeneralTariffParameter(serviceCost, previousSevriceCost);
+            return new ColdWaterTariffParameter(serviceCost, previousSevriceCost);
         }
     }
 }
