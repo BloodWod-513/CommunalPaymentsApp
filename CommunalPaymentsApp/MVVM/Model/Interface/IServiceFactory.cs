@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CommunalPaymentsApp.MVVM.Model.Interface
 {
-    public interface IServiceFactory : IServiceGeneralTariffFactory, INormativeServiceFactory
+    public interface IServiceFactory : IServiceTariffFactory, IServiceNormativeFactory
     {
        
     }

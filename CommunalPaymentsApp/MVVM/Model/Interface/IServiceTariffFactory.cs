@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CommunalPaymentsApp.MVVM.Model.Interface
 {
-    public interface INormativeServiceFactory
+    public interface IServiceTariffFactory
     {
-        public NormativeServiceParameter CreateNormativeServiceParameter(int numberOfResidents);
+        TariffServiceParameter CreateTariffServiceParameter(double serviceCost, double previousSevriceCost);
     }
 }
