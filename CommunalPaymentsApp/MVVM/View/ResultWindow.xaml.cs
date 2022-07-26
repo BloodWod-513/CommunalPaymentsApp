@@ -33,5 +33,11 @@ namespace CommunalPaymentsApp.MVVM.View
             DataContext = ResultWindowViewModel;
             DataGridResult.ItemsSource = ResultWindowViewModel.ServiceParameters;
         }
+        private void GoToNextMonthButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = (MainWindow)this.Owner;
+            mainWindow.Debt.TextBox.Text = ResultWindowViewModel.TotalAmountResult.ToString();
+            this.Close();
+        }
     }
 }

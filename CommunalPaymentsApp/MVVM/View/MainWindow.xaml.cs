@@ -31,7 +31,6 @@ namespace CommunalPaymentsApp.MVVM.View
             MainWindowVM = new MainWindowViewModel();
             DataContext = MainWindowVM;
         }
-
         private void MakeAccrualsButton_Click(object sender, RoutedEventArgs e)
         {
             if (!TryEnterNumber(AmountOfResidents.TextBox.Text))
@@ -85,6 +84,7 @@ namespace CommunalPaymentsApp.MVVM.View
             List<ServiceParameter> serviceParameters = new() { coldWaterServiceParameter, hotWaterOfHeatCarrieServiceParameter, hotWaterThermalEnergy, electricyServiceParameter, electricyPerDayServiceParameter, electricyPerNightServiceParameter };
             serviceParameters.RemoveAll(p => p == null);
             ResultWindow resultWindow = new(serviceParameters, numberOfResidents, debt);
+            resultWindow.Owner = this;
             resultWindow.ShowDialog();
         }
         private bool TryEnterNumber(string str)
@@ -94,7 +94,7 @@ namespace CommunalPaymentsApp.MVVM.View
                 ShowError("Вы ничего не ввели.");
                 return false;
             }
-            else if (!int.TryParse(str, out int number))
+            else if (!double.TryParse(str, out double number))
             {
                 ShowError("Введите число.");
                 return false;
