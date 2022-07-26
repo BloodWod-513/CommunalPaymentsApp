@@ -27,5 +27,6 @@ namespace CommunalPaymentsApp.UserControls
         }
         public string ParameterText { get; set; }
         public double Value { get; set; }
+        public double PrevValue { get; set; }
     }
 }

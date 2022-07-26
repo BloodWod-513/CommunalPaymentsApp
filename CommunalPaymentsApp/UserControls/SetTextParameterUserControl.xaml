@@ -11,7 +11,7 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" BorderBrush="{x:Null}" Height="50">
+        <Border Grid.Column="0" BorderBrush="{x:Null}">
             <TextBlock TextWrapping="Wrap" FontSize="14" 
                        Text="{Binding ParameterText}" 
                        VerticalAlignment="Center" HorizontalAlignment="Left"/>
