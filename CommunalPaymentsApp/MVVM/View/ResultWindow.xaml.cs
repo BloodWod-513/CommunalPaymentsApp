@@ -27,7 +27,7 @@ namespace CommunalPaymentsApp.MVVM.View
         {
             InitializeComponent();
         }
-        public ResultWindow(List<ServiceParameter?> serviceParameters) : this()
+        public ResultWindow(List<ServiceParameter> serviceParameters) : this()
         {
             ResultWindowViewModel = new(serviceParameters);
             DataGridResult.ItemsSource = ResultWindowViewModel.ServiceParameters;
