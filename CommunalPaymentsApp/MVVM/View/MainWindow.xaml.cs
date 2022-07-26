@@ -39,11 +39,11 @@ namespace CommunalPaymentsApp.MVVM.View
             int numberOfResidents = int.Parse(AmountOfResidents.TextBox.Text);
 
             ServiceParameter? coldWaterServiceParameter = null,
-                hotWaterServiceParameter = null,
+                hotWaterOfHeatCarrieServiceParameter = null, hotWaterThermalEnergy = null,
                 electricyServiceParameter = null, electricyPerDayServiceParameter = null, electricyPerNightServiceParameter = null;
             if ((bool)ColdWater.CheckBox.IsChecked)
             {
-                coldWaterServiceParameter = ServiceParameterCreator.CreateGeneralTariffParameter(new ColdWaterParameterFactory(), ColdWater.Value, 0);
+                coldWaterServiceParameter = ServiceParameterCreator.CreateTariffParameter(new ColdWaterParameterFactory(), ColdWater.Value, ColdWater.PrevValue);
             }
             else
             {
@@ -51,33 +51,35 @@ namespace CommunalPaymentsApp.MVVM.View
             }
             if ((bool)HotWater.CheckBox.IsChecked)
             {
-                hotWaterServiceParameter = ServiceParameterCreator.CreateGeneralTariffParameter(new HotWaterParameterFactory(), HotWater.Value, 0);
+                hotWaterOfHeatCarrieServiceParameter = ServiceParameterCreator.CreateTariffParameter(new HotWaterParameterFactory(), HotWater.Value, HotWater.PrevValue);
             }
             else
             {
-                hotWaterServiceParameter = ServiceParameterCreator.CreateNormativParameter(new HotWaterParameterFactory(), numberOfResidents);
+                hotWaterOfHeatCarrieServiceParameter = ServiceParameterCreator.CreateNormativParameter(new HotWaterParameterFactory(), numberOfResidents);
             }
+            hotWaterThermalEnergy = ServiceParameterCreator.CreateHotWaterThermalEnergyParameter(new HotWaterParameterFactory(), hotWaterOfHeatCarrieServiceParameter.VolumeOfService);
 
             if ((bool)ElectricyCheckBox.IsChecked)
             {
                 if (MainWindowVM.ElectricyTwoTariffCheckBoxIsChecked)
                 {
-                    electricyServiceParameter = ServiceParameterCreator.CreateGeneralTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.ElectrocityPerDay + MainWindowVM.ElectrocityPerNight, 0);
-                    electricyPerDayServiceParameter = ServiceParameterCreator.CreateDayTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.ElectrocityPerDay, 0);
-                    electricyPerNightServiceParameter = ServiceParameterCreator.CreateNightTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.ElectrocityPerNight, 0);
+                    electricyPerDayServiceParameter = ServiceParameterCreator.CreateDayTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.ElectrocityPerDay, MainWindowVM.PrevElectrocityPerDay);
+                    electricyPerNightServiceParameter = ServiceParameterCreator.CreateNightTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.ElectrocityPerNight, MainWindowVM.PrevElectrocityPerNight);
+
+                    electricyServiceParameter = ServiceParameterCreator.CreateTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.ElectrocityPerDay + MainWindowVM.ElectrocityPerNight, 0);
                     electricyServiceParameter.Tariff.Normative = electricyPerDayServiceParameter?.Tariff?.Normative + electricyPerNightServiceParameter?.Tariff?.Normative;
                     electricyServiceParameter.Tariff.Cost = 0;
                     electricyServiceParameter.AutoResult = false;
                     electricyServiceParameter.Result = electricyPerDayServiceParameter.Result + electricyPerNightServiceParameter.Result;
                 }
                 else
-                    electricyServiceParameter = ServiceParameterCreator.CreateGeneralTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.Electrocity, 0);
+                    electricyServiceParameter = ServiceParameterCreator.CreateTariffParameter(new ElectrocityParameterFactory(), MainWindowVM.Electrocity, MainWindowVM.PrevElectrocity);
             }
             else
             {
                 electricyServiceParameter = ServiceParameterCreator.CreateNormativParameter(new ElectrocityParameterFactory(), numberOfResidents);
             }
-            List<ServiceParameter?> serviceParameters = new() { coldWaterServiceParameter, hotWaterServiceParameter, electricyServiceParameter, electricyPerDayServiceParameter, electricyPerNightServiceParameter };
+            List<ServiceParameter> serviceParameters = new() { coldWaterServiceParameter, hotWaterOfHeatCarrieServiceParameter, hotWaterThermalEnergy, electricyServiceParameter, electricyPerDayServiceParameter, electricyPerNightServiceParameter };
             serviceParameters.RemoveAll(p => p == null);
             ResultWindow resultWindow = new(serviceParameters);
             resultWindow.ShowDialog();

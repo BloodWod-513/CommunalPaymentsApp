@@ -21,9 +21,9 @@
                    VerticalContentAlignment="Center"/>
             <StackPanel Margin="10, 0, 10, 0">
                 <uc:SetTextParameterUserControl x:Name="AmountOfResidents" ParameterText="Кол-во проживающих в помещении:"/>
-                <uc:SetBoolParameterUserControl x:Name="ColdWater" ParameterText="Имеется ли прибор учета по услуге ХВС:"/>
-                <uc:SetBoolParameterUserControl x:Name="HotWater" ParameterText="Имеется ли прибор учета по услуге ГВС:"/>
-                <Grid>
+                <uc:SetBoolParameterUserControl x:Name="ColdWater" ParameterText="Имеется ли прибор учета по услуге ХВС:"  Margin="0, 15, 0, 0"/>
+                <uc:SetBoolParameterUserControl x:Name="HotWater" ParameterText="Имеется ли прибор учета по услуге ГВС:"  Margin="0, 15, 0, 0"/>
+                <Grid  Margin="0, 15, 0, 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300"/>
                         <ColumnDefinition Width="*"/>
@@ -43,7 +43,7 @@
                                                     <Setter Property="Template">
                                                         <Setter.Value>
                                                             <ControlTemplate>
-                                                                <StackPanel Margin="5, 10, 0, 0">
+                                                                <StackPanel Margin="10, 10, 0, 0">
                                                                     <StackPanel Orientation="Horizontal">
                                                                         <TextBlock Text="Двойной тариф " TextWrapping="Wrap" FontSize="13"
                                                                                    VerticalAlignment="Center"
@@ -64,10 +64,10 @@
                                                                                             <Setter.Value>
                                                                                                 <ControlTemplate>
                                                                                                     <StackPanel>
-                                                                                                        <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 10">
+                                                                                                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
                                                                                                             <TextBlock TextWrapping="Wrap" FontSize="13" 
                                                                                                                        Text="Текущие показания за день: "
-                                                                                                                       VerticalAlignment="Center" 
+                                                                                                                       VerticalAlignment="Center" Width="200"
                                                                                                                        HorizontalAlignment="Left"/>
                                                                                                             <TextBox Height="20" Width="90" FontSize="13"
                                                                                                                      VerticalContentAlignment="Center" 
@@ -75,16 +75,38 @@
                                                                                                                      VerticalScrollBarVisibility="Auto"
                                                                                                                      Text="{Binding ElectrocityPerDay}"/>
                                                                                                         </StackPanel>
-                                                                                                        <StackPanel Orientation="Horizontal">
+                                                                                                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                                                                                        <TextBlock TextWrapping="Wrap" FontSize="13" 
+                                                                                                                       Text="Предыдущие показания за день: "
+                                                                                                                       VerticalAlignment="Center" Width="200"
+                                                                                                                       HorizontalAlignment="Left"/>
+                                                                                                        <TextBox Height="20" Width="90" FontSize="13"
+                                                                                                                     VerticalContentAlignment="Center" 
+                                                                                                                     TextWrapping="Wrap" 
+                                                                                                                     VerticalScrollBarVisibility="Auto"
+                                                                                                                     Text="{Binding PrevElectrocityPerDay}"/>
+                                                                                                        </StackPanel>
+                                                                                                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
                                                                                                             <TextBlock TextWrapping="Wrap" FontSize="13" 
                                                                                                                        Text="Текущие показания за ночь: "
-                                                                                                                       VerticalAlignment="Center" 
+                                                                                                                       VerticalAlignment="Center" Width="200" 
                                                                                                                        HorizontalAlignment="Left"/>
                                                                                                             <TextBox Height="20" Width="90" FontSize="13"
                                                                                                                      VerticalContentAlignment="Center" 
                                                                                                                      TextWrapping="Wrap" 
                                                                                                                      VerticalScrollBarVisibility="Auto"
                                                                                                                      Text="{Binding ElectrocityPerNight}"/>
+                                                                                                        </StackPanel>
+                                                                                                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                                                                                            <TextBlock TextWrapping="Wrap" FontSize="13" 
+                                                                                                                       Text="Предыдущие показания за ночь: "
+                                                                                                                       VerticalAlignment="Center" Width="200" 
+                                                                                                                       HorizontalAlignment="Left"/>
+                                                                                                            <TextBox Height="20" Width="90" FontSize="13"
+                                                                                                                     VerticalContentAlignment="Center" 
+                                                                                                                     TextWrapping="Wrap" 
+                                                                                                                     VerticalScrollBarVisibility="Auto"
+                                                                                                                     Text="{Binding PrevElectrocityPerNight}"/>
                                                                                                         </StackPanel>
                                                                                                     </StackPanel>
                                                                                                 </ControlTemplate>
@@ -96,16 +118,29 @@
                                                                                         <Setter Property="Template">
                                                                                             <Setter.Value>
                                                                                                 <ControlTemplate>
-                                                                                                    <StackPanel Orientation="Horizontal">
-                                                                                                        <TextBlock TextWrapping="Wrap" FontSize="13" Margin="0, 10, 0, 10"
-                                                                                                                   Text="Текущие показания: "
-                                                                                                                   VerticalAlignment="Center" 
-                                                                                                                   HorizontalAlignment="Left"/>
-                                                                                                        <TextBox Height="20" Width="90" FontSize="13"
-                                                                                                                 VerticalContentAlignment="Center" 
-                                                                                                                 TextWrapping="Wrap" 
-                                                                                                                 VerticalScrollBarVisibility="Auto"
-                                                                                                                 Text="{Binding Electrocity}"/>
+                                                                                                    <StackPanel>
+                                                                                                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                                                                                            <TextBlock TextWrapping="Wrap" FontSize="13"
+                                                                                                                       Text="Текущие показания: "
+                                                                                                                       VerticalAlignment="Center" Width="200" 
+                                                                                                                       HorizontalAlignment="Left"/>
+                                                                                                            <TextBox Height="20" Width="90" FontSize="13"
+                                                                                                                     VerticalContentAlignment="Center" 
+                                                                                                                     TextWrapping="Wrap" 
+                                                                                                                     VerticalScrollBarVisibility="Auto"
+                                                                                                                     Text="{Binding Electrocity}"/>
+                                                                                                        </StackPanel>
+                                                                                                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                                                                                            <TextBlock TextWrapping="Wrap" FontSize="13"
+                                                                                                                       Text="Предыдущие показания: "
+                                                                                                                       VerticalAlignment="Center" Width="200" 
+                                                                                                                       HorizontalAlignment="Left"/>
+                                                                                                            <TextBox Height="20" Width="90" FontSize="13"
+                                                                                                                     VerticalContentAlignment="Center" 
+                                                                                                                     TextWrapping="Wrap" 
+                                                                                                                     VerticalScrollBarVisibility="Auto"
+                                                                                                                     Text="{Binding PrevElectrocity}"/>
+                                                                                                        </StackPanel>
                                                                                                     </StackPanel>
                                                                                                 </ControlTemplate>
                                                                                             </Setter.Value>
