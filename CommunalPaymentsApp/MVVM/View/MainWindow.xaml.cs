@@ -34,9 +34,12 @@ namespace CommunalPaymentsApp.MVVM.View
 
         private void MakeAccrualsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!TryEnterAmountOfResidents(AmountOfResidents.TextBox.Text))
+            if (!TryEnterNumber(AmountOfResidents.TextBox.Text))
                 return;
             int numberOfResidents = int.Parse(AmountOfResidents.TextBox.Text);
+            if (!TryEnterNumber(Debt.TextBox.Text))
+                return;
+            double debt = double.Parse(Debt.TextBox.Text);
 
             ServiceParameter? coldWaterServiceParameter = null,
                 hotWaterOfHeatCarrieServiceParameter = null, hotWaterThermalEnergy = null,
@@ -81,17 +84,17 @@ namespace CommunalPaymentsApp.MVVM.View
             }
             List<ServiceParameter> serviceParameters = new() { coldWaterServiceParameter, hotWaterOfHeatCarrieServiceParameter, hotWaterThermalEnergy, electricyServiceParameter, electricyPerDayServiceParameter, electricyPerNightServiceParameter };
             serviceParameters.RemoveAll(p => p == null);
-            ResultWindow resultWindow = new(serviceParameters);
+            ResultWindow resultWindow = new(serviceParameters, numberOfResidents, debt);
             resultWindow.ShowDialog();
         }
-        private bool TryEnterAmountOfResidents(string amountOfResidents)
+        private bool TryEnterNumber(string str)
         {
-            if (string.IsNullOrWhiteSpace(amountOfResidents))
+            if (string.IsNullOrWhiteSpace(str))
             {
                 ShowError("Вы ничего не ввели.");
                 return false;
             }
-            else if (!int.TryParse(amountOfResidents, out int number))
+            else if (!int.TryParse(str, out int number))
             {
                 ShowError("Введите число.");
                 return false;

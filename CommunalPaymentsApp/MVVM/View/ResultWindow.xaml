@@ -18,18 +18,40 @@
                        Text="Вывод результата" 
                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
-        <DataGrid x:Name="DataGridResult" Grid.Row="1" CanUserAddRows="False" 
-                  AutoGenerateColumns="False" 
-                  ColumnWidth="*"
-                  ItemsSource="{Binding Tariffs}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Вид платы" Binding="{Binding Path=Tariff.ServiceName}"/>
-                <DataGridTextColumn Header="Ед. измерения" Binding="{Binding Path=Tariff.UnitMesurement}"/>
-                <DataGridTextColumn Header="Номинал" Binding="{Binding Path=Tariff.Normative}"/>
-                <DataGridTextColumn Header="Тариф" Binding="{Binding Path=Tariff.Cost}"/>
-                <DataGridTextColumn Header="Объем потребления" Binding="{Binding Path=VolumeOfService}"/>
-                <DataGridTextColumn Header="Итого" Binding="{Binding Path=Result}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <StackPanel Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Число жителей: " HorizontalAlignment="Left"
+                           Margin="5, 5, 0, 5"/>
+                <TextBlock Text="{Binding NumberOfResidents}" HorizontalAlignment="Left"
+                       Margin="0, 5, 0, 5"/>
+            </StackPanel>
+            <DataGrid x:Name="DataGridResult" CanUserAddRows="False" 
+                      AutoGenerateColumns="False" 
+                      ColumnWidth="*"
+                      ItemsSource="{Binding Tariffs}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Вид платы" Binding="{Binding Path=Tariff.ServiceName}"/>
+                    <DataGridTextColumn Header="Ед. измерения" Binding="{Binding Path=Tariff.UnitMesurement}"/>
+                    <DataGridTextColumn Header="Номинал" Binding="{Binding Path=Tariff.Normative}"/>
+                    <DataGridTextColumn Header="Тариф" Binding="{Binding Path=Tariff.Cost}"/>
+                    <DataGridTextColumn Header="Объем потребления" Binding="{Binding Path=VolumeOfService}"/>
+                    <DataGridTextColumn Header="Итого" Binding="{Binding Path=Result}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Grid.Row="2">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Долг: " HorizontalAlignment="Left"
+                           Margin="5, 5, 0, 5"/>
+                <TextBlock Text="{Binding Debt}" HorizontalAlignment="Left"
+                       Margin="0, 5, 0, 5"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Итоговая сумма к оплате: " HorizontalAlignment="Left"
+                           Margin="5, 5, 0, 5"/>
+                <TextBlock Text="{Binding TotalAmountResult}" HorizontalAlignment="Left"
+                       Margin="0, 5, 0, 5"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

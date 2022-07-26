@@ -11,7 +11,10 @@ namespace CommunalPaymentsApp.MVVM.ViewModel
     public class ResultWindowViewModel
     {
         public List<ServiceParameter> ServiceParameters { get; set; }
-        public ResultWindowViewModel(List<ServiceParameter> serviceParameters)
+        public int NumberOfResidents { get; set; }
+        public double TotalAmountResult { get; set; }
+        public double Debt { get; set; }
+        public ResultWindowViewModel(List<ServiceParameter> serviceParameters, int numberOfResidents, double debt)
         {
             ServiceParameters = new List<ServiceParameter>(serviceParameters);
             ServiceParameter emptyServiceParameter = new EmptyServiceParamter();
@@ -25,6 +28,9 @@ namespace CommunalPaymentsApp.MVVM.ViewModel
                 }
             }
             ServiceParameters.Add(emptyServiceParameter);
+            NumberOfResidents = numberOfResidents;
+            Debt = debt;
+            TotalAmountResult = emptyServiceParameter.Result + debt;
         }
 
     }

@@ -21,6 +21,7 @@
                    VerticalContentAlignment="Center"/>
             <StackPanel Margin="10, 0, 10, 0">
                 <uc:SetTextParameterUserControl x:Name="AmountOfResidents" ParameterText="Кол-во проживающих в помещении:"/>
+                <uc:SetTextParameterUserControl x:Name="Debt" ParameterText="Долг:"  Margin="0, 15, 0, 0"/>
                 <uc:SetBoolParameterUserControl x:Name="ColdWater" ParameterText="Имеется ли прибор учета по услуге ХВС:"  Margin="0, 15, 0, 0"/>
                 <uc:SetBoolParameterUserControl x:Name="HotWater" ParameterText="Имеется ли прибор учета по услуге ГВС:"  Margin="0, 15, 0, 0"/>
                 <Grid  Margin="0, 15, 0, 0">
